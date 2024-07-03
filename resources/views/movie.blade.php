@@ -7,10 +7,11 @@
     <title>Movie List</title>
 </head>
 <body>
+    映画一覧
     <ul>
         @foreach ($movies as $movie)
-            <li>タイトル: {{ $movie->title }}</li>
-            {{-- <li>画像URL: {{ $movie->image_url }}</li> --}}
+            <li>映画タイトル: {{ $movie->title }}</li>
+            <li>画像URL: {{ $movie->image_url }}</li>
             <img src="{{$movie->image_url}}" alt="">
         @endforeach
     </ul>
