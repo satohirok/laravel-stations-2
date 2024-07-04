@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,13 +8,22 @@
     <title>Movie List</title>
 </head>
 <body>
-    映画一覧
-    <ul>
-        @foreach ($movies as $movie)
-            <li>映画タイトル: {{ $movie->title }}</li>
-            <li>画像URL: {{ $movie->image_url }}</li>
-            <img src="{{$movie->image_url}}" alt="">
-        @endforeach
-    </ul>
+    <div class="container mt-2">
+        <h1>映画一覧</h1>
+        <table class="table">
+            <thead>
+                <th>映画タイトル</th>
+                <th>画像URL</th>
+            </thead>
+            <tbody>
+                @foreach ($movies as $movie)
+                <tr>
+                    <td> {{ $movie->title }}</td>
+                    <td>{{ $movie->image_url }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

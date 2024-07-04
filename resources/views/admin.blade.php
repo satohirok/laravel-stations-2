@@ -1,3 +1,4 @@
+@include('layouts.app')
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,22 +8,35 @@
     <title>Movie List</title>
 </head>
 <body>
-    管理者画面
-    <ul>
-        @foreach ($movies as $movie)
-            <li>映画タイトル: {{ $movie->title }}</li>
-            <li>画像URL: {{ $movie->image_url }}</li>
-            {{-- <img src="{{$movie->image_url}}" alt=""> --}}
-            <li>公開年:{{$movie->published_year}}</li>
-            <li>上映中かどうか:
-                @if($movie->is_showing === 1)
-                    上映中
-                @else
-                    上映予定
-                @endif
-            </li>
-            <li>概要:{{$movie->description}}</li>
-        @endforeach
-    </ul>
+    <div class="container mt-3">
+        <h1>管理者画面</h1>
+        <table class="table">
+            <thead>
+                <th>映画タイトル</th>
+                <th>画像URL</th>
+                <th>公開年</th>
+                <th>上映中かどうか</th>
+                <th>概要</th>
+
+            </thead>
+            <tbody>
+                @foreach ($movies as $movie)
+                <tr>
+                    <td> {{ $movie->title }}</td>
+                    <td>{{ $movie->image_url }}</td>
+                    <td>{{$movie->published_year}}</td>
+                    <td>
+                        @if($movie->is_showing === 1)
+                            上映中
+                        @else
+                            上映予定
+                        @endif
+                    </td>
+                    <td>{{$movie->description}}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
