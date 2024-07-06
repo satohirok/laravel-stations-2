@@ -37,6 +37,8 @@
                 @endforeach
             </tbody>
         </table>
+        <a href="{{ route('admin.create') }}">登録画面</a>
+        <a href="{{ route('index') }}">一覧</a>
     </div>
 </body>
 </html>

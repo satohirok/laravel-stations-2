@@ -8,6 +8,11 @@ use App\Models\Movie;
 class MovieController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->book = new Movie();
+    }
+
     public function index()
     {
         $movies = Movie::all();
@@ -18,5 +23,32 @@ class MovieController extends Controller
     {
         $movies = Movie::all();
         return view('admin',['movies' => $movies]);
+    }
+    public function create()
+    {
+        return view('create');
+    }
+    public function store(Request $request)
+    {
+        $validate_rule = [
+            'title' => 'required | unique:movies',
+            'image_url' => 'required | url',
+            'published_year' => 'required | integer',
+            'is_showing' => 'boolean',
+            'description' => 'required'
+        ];
+
+        $this->validate($request, $validate_rule);
+
+        $movie = new Movie();
+        $movie->title = $request->input('title');
+        $movie->image_url = $request->input('image_url');
+        $movie->published_year = $request->input('published_year');
+        $movie->is_showing = $request->input('is_showing');
+        $movie->description = $request->input('description');
+
+        $movie->save();
+        return redirect()->route('admin');
+
     }
 }
