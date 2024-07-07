@@ -33,6 +33,7 @@
                         @endif
                     </td>
                     <td>{{$movie->description}}</td>
+                    <td><a href="{{ route('admin.edit',['id' => $movie->id] ) }}">編集</a></td>
                 </tr>
                 @endforeach
             </tbody>
