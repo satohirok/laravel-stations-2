@@ -76,8 +76,20 @@ class MovieController extends Controller
         $movie->published_year = $request->input('published_year');
         $movie->is_showing = $request->input('is_showing');
         $movie->description = $request->input('description');
-        
+
         $movie->save();
+        return redirect()->route('admin');
+    }
+
+    public function destroy($id)
+    {
+        $movie = Movie::find($id);
+        
+        if (!$movie) {
+            return abort(404);
+        }
+
+        $movie->delete();
         return redirect()->route('admin');
     }
 }
