@@ -10,16 +10,6 @@
 <body>
     <div class="container mt-3">
         <h1>登録画面</h1>
-        {{-- <p>{{ $msg }}</p> --}}
-        {{-- @if (count($errors) > 0)
-        <div>
-            <ul>
-                @foreach ($errors as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif --}}
         <form method="POST" action="{{route('admin.store')}}">
             @csrf
 

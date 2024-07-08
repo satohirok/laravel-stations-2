@@ -13,10 +13,29 @@ class MovieController extends Controller
         $this->book = new Movie();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $movies = Movie::all();
-        return view('movie',['movies' => $movies]);
+        $query = Movie::query();
+
+        $is_showing = $request->input('is_showing', 'all');
+
+        if ($is_showing === '1'){
+            $query->where('is_showing',true);
+        } elseif($is_showing === '0'){
+            $query->where('is_showing',false);
+        }
+
+        $keyword = $request->input('keyword','');
+
+        if (!empty($keyword)) {
+            $query->where(function($q) use ($keyword) {
+                $q->where('title', 'like', '%' . $keyword . '%')
+                  ->orWhere('description', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        $movies = $query->paginate(20);
+        return view('movie',compact('movies','keyword','is_showing'));
     }
 
     public function admin()
@@ -84,7 +103,7 @@ class MovieController extends Controller
     public function destroy($id)
     {
         $movie = Movie::find($id);
-        
+
         if (!$movie) {
             return abort(404);
         }
