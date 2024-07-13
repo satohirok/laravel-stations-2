@@ -43,7 +43,7 @@
             @enderror
 
             <label for="genre mt-3">ジャンル</label>
-            <input type="text" name="name" class="form-control" value="{{ $movie->genre->name }}">
+            <input type="text" name="genre" class="form-control" value="{{ $movie->genre->name }}">
             @error('name')
                 <p>{{ $message }}</p>
             @enderror

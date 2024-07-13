@@ -56,18 +56,18 @@ class MovieController extends Controller
             'image_url' => 'required | url',
             'published_year' => 'required | integer',
             'is_showing' => 'boolean',
-            'name' => 'required',
+            'genre' => 'required',
             'description' => 'required'
         ];
 
         $this->validate($request, $validate_rule);
 
+
         DB::beginTransaction();
 
-        try{
-            $movie = new Movie();
 
-            $genreName = $request->input('name');
+        try{
+            $genreName = $request->input('genre');
 
             $genre = Genre::where('name',$genreName)->first();
 
@@ -76,6 +76,10 @@ class MovieController extends Controller
                 $genre->name = $genreName;
                 $genre->save();
             }
+
+            $movie = new Movie();
+
+
 
             $movie->title = $request->input('title');
             $movie->image_url = $request->input('image_url');
@@ -90,9 +94,9 @@ class MovieController extends Controller
 
             return redirect()->route('admin');
 
-        } catch (\Excepton $e) {
+        } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->withErrors(['msg' => 'データ保存中にエラーが発生しました:' . $e->getMessage()]);
+            return response()->json(['error' => '変更に失敗しました'],500);
         }
 
 
@@ -111,7 +115,7 @@ class MovieController extends Controller
             'image_url' => 'required | url',
             'published_year' => 'required | integer',
             'is_showing' => 'boolean',
-            'name' => 'required',
+            'genre' => 'required',
             'description' => 'required'
         ];
 
@@ -119,9 +123,7 @@ class MovieController extends Controller
 
         DB::beginTransaction();
         try{
-            $movie = Movie::find($id);
-
-            $genreName = $request->input('name');
+            $genreName = $request->input('genre');
 
             $genre = Genre::where('name',$genreName)->first();
 
@@ -131,6 +133,8 @@ class MovieController extends Controller
                 $genre->save();
             }
 
+            $movie = Movie::find($id);
+
             $movie->title = $request->input('title');
             $movie->image_url = $request->input('image_url');
             $movie->published_year = $request->input('published_year');
@@ -139,12 +143,13 @@ class MovieController extends Controller
             $movie->genre_id = $genre->id;
 
             $movie->save();
-        } catch (\Excepton $e) {
+            return redirect()->route('admin');
+
+        } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->withErrors(['msg' => 'データ保存中にエラーが発生しました:' . $e->getMessage()]);
+            return response()->json(['error' => '変更に失敗しました'],500);
         }
 
-        return redirect()->route('admin');
     }
 
     public function destroy($id)

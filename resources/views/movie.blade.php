@@ -27,8 +27,8 @@
                 <th>映画タイトル</th>
                 <th>画像URL</th>
                 <th>概要</th>
-                <th>ジャンル</th>
                 <th>上映中かどうか</th>
+                <th>ジャンル</th>
             </thead>
             <tbody>
                 @foreach ($movies as $movie)
@@ -36,14 +36,14 @@
                     <td> {{ $movie->title }}</td>
                     <td>{{ $movie->image_url }}</td>
                     <td>{{ $movie->description }}</td>
-                    <td>{{ $movie->genre->name }}</td>
                     <td>
                         @if($movie->is_showing === 1)
-                            上映中
+                        上映中
                         @else
-                            上映予定
+                        上映予定
                         @endif
                     </td>
+                    <td>{{ $movie->genre_id }}</td>
                 </tr>
                 @endforeach
             </tbody>
