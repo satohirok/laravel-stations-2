@@ -42,6 +42,12 @@
                 <p>{{ $message }}</p>
             @enderror
 
+            <label for="genre mt-3">ジャンル</label>
+            <input type="text" name="name" class="form-control" value="{{ $movie->genre->name }}">
+            @error('name')
+                <p>{{ $message }}</p>
+            @enderror
+
 
             <label for="description" class="form-label">概要</label>
             <textarea name="description" class="form-control">{{$movie->description}}</textarea>

@@ -111,19 +111,39 @@ class MovieController extends Controller
             'image_url' => 'required | url',
             'published_year' => 'required | integer',
             'is_showing' => 'boolean',
+            'name' => 'required',
             'description' => 'required'
         ];
 
         $this->validate($request, $validate_rule);
 
-        $movie = Movie::find($id);
-        $movie->title = $request->input('title');
-        $movie->image_url = $request->input('image_url');
-        $movie->published_year = $request->input('published_year');
-        $movie->is_showing = $request->input('is_showing');
-        $movie->description = $request->input('description');
+        DB::beginTransaction();
+        try{
+            $movie = Movie::find($id);
 
-        $movie->save();
+            $genreName = $request->input('name');
+
+            $genre = Genre::where('name',$genreName)->first();
+
+            if (!$genre) {
+                $genre = new Genre();
+                $genre->name = $genreName;
+                $genre->save();
+            }
+
+            $movie->title = $request->input('title');
+            $movie->image_url = $request->input('image_url');
+            $movie->published_year = $request->input('published_year');
+            $movie->is_showing = $request->input('is_showing');
+            $movie->description = $request->input('description');
+            $movie->genre_id = $genre->id;
+
+            $movie->save();
+        } catch (\Excepton $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['msg' => 'データ保存中にエラーが発生しました:' . $e->getMessage()]);
+        }
+
         return redirect()->route('admin');
     }
 

@@ -44,7 +44,7 @@
 
             <label for="genre mt-3">ジャンル</label>
             <input type="text" name="name" class="form-control">
-            @error('is_showing')
+            @error('name')
                 <p>{{ $message }}</p>
             @enderror
 
