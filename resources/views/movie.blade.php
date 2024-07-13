@@ -27,6 +27,7 @@
                 <th>映画タイトル</th>
                 <th>画像URL</th>
                 <th>概要</th>
+                <th>ジャンル</th>
                 <th>上映中かどうか</th>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                     <td> {{ $movie->title }}</td>
                     <td>{{ $movie->image_url }}</td>
                     <td>{{ $movie->description }}</td>
+                    <td>{{ $movie->genre->name }}</td>
                     <td>
                         @if($movie->is_showing === 1)
                             上映中
@@ -46,6 +48,8 @@
                 @endforeach
             </tbody>
         </table>
+        <a href="{{ route('admin.create') }}">登録画面</a>
+        <a href="{{ route('admin') }}">管理画面</a>
         <div class="pagination">
             {{ $movies->appends(request()->input())->links() }}
         </div>

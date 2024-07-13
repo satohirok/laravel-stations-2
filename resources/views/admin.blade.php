@@ -16,6 +16,7 @@
                 <th>画像URL</th>
                 <th>公開年</th>
                 <th>上映中かどうか</th>
+                <th>ジャンル</th>
                 <th>概要</th>
 
             </thead>
@@ -32,6 +33,7 @@
                             上映予定
                         @endif
                     </td>
+                    <td>{{$movie->genre->name}}</td>
                     <td>{{$movie->description}}</td>
                     <td><a href="{{ route('admin.edit',['id' => $movie->id]) }}" >編集</a></td>
                     <td><a href="{{ route('admin.destroy',['id' => $movie->id] )}}" onclick="return confirm('削除してよろしいですか?')">削除</a></td>
