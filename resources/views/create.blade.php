@@ -42,8 +42,14 @@
                 <p>{{ $message }}</p>
             @enderror
 
+            <label for="genre mt-3">ジャンル</label>
+            <input type="text" name="name" class="form-control">
+            @error('is_showing')
+                <p>{{ $message }}</p>
+            @enderror
 
-            <label for="description" class="form-label">概要</label>
+
+            <label for="description" class="form-label mt-3">概要</label>
             <textarea name="description" class="form-control"></textarea>
             @error('description')
                 <p>{{ $message }}</p>

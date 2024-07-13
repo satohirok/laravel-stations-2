@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use App\Models\Genre;
+use Illuminate\Support\Facades\DB;
 
 class MovieController extends Controller
 {
@@ -54,20 +56,45 @@ class MovieController extends Controller
             'image_url' => 'required | url',
             'published_year' => 'required | integer',
             'is_showing' => 'boolean',
+            'name' => 'required',
             'description' => 'required'
         ];
 
         $this->validate($request, $validate_rule);
 
-        $movie = new Movie();
-        $movie->title = $request->input('title');
-        $movie->image_url = $request->input('image_url');
-        $movie->published_year = $request->input('published_year');
-        $movie->is_showing = $request->input('is_showing');
-        $movie->description = $request->input('description');
+        DB::beginTransaction();
 
-        $movie->save();
-        return redirect()->route('admin');
+        try{
+            $movie = new Movie();
+
+            $genreName = $request->input('name');
+
+            $genre = Genre::where('name',$genreName)->first();
+
+            if (!$genre) {
+                $genre = new Genre();
+                $genre->name = $genreName;
+                $genre->save();
+            }
+
+            $movie->title = $request->input('title');
+            $movie->image_url = $request->input('image_url');
+            $movie->published_year = $request->input('published_year');
+            $movie->is_showing = $request->input('is_showing');
+            $movie->description = $request->input('description');
+            $movie->genre_id = $genre->id;
+
+
+            $movie->save();
+            DB::commit();
+
+            return redirect()->route('admin');
+
+        } catch (\Excepton $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['msg' => 'データ保存中にエラーが発生しました:' . $e->getMessage()]);
+        }
+
 
     }
 
