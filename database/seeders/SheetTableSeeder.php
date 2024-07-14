@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\Sheet;
 
 class SheetTableSeeder extends Seeder
 {
@@ -33,7 +34,7 @@ class SheetTableSeeder extends Seeder
         ];
 
         foreach ($seeds as $seed) {
-            DB::table('sheets')->insert($seed);
+            Sheet::create($seed);
         }
     }
 }
