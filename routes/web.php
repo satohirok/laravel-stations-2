@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\SheetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::get('/practice3', [PracticeController::class, 'sample3']);
 
 Route::get('/getPractice',[PracticeController::class,'getPractice']);
 
+// movie
 Route::get('/movies',[MovieController::class,'index'])->name('index');
 Route::get('/admin/movies',[MovieController::class,'admin'])->name('admin');
 Route::get('/admin/movies/create',[MovieController::class,'create'])->name('admin.create');
@@ -34,3 +36,6 @@ Route::get('/admin/movies/{id}/update',[MovieController::class,'update'])->name(
 Route::patch('/admin/movies/{id}/update',[MovieController::class,'update'])->name('admin.update');
 Route::get('/admin/movies/{id}/destroy',[MovieController::class,'destroy'])->name('admin.destroy');
 Route::delete('/admin/movies/{id}/destroy',[MovieController::class,'destroy'])->name('admin.destroy');
+
+// sheet
+Route::get('/sheets',[SheetController::class,'index'])->name('sheets.index');

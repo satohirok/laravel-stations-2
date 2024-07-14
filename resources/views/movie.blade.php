@@ -50,6 +50,7 @@
         </table>
         <a href="{{ route('admin.create') }}">登録画面</a>
         <a href="{{ route('admin') }}">管理画面</a>
+        <a href="{{ route('sheets.index') }}">座席表</a>
         <div class="pagination">
             {{ $movies->appends(request()->input())->links() }}
         </div>
