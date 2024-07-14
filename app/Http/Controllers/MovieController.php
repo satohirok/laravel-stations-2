@@ -37,17 +37,17 @@ class MovieController extends Controller
         }
 
         $movies = $query->paginate(20);
-        return view('movie',compact('movies','keyword','is_showing'));
+        return view('/movie/index',compact('movies','keyword','is_showing'));
     }
 
     public function admin()
     {
         $movies = Movie::all();
-        return view('admin',['movies' => $movies]);
+        return view('/admin/admin',['movies' => $movies]);
     }
     public function create()
     {
-        return view('create');
+        return view('admin/create');
     }
     public function store(Request $request)
     {
@@ -105,7 +105,7 @@ class MovieController extends Controller
     public function edit($id)
     {
         $movie = Movie::find($id);
-        return view('edit',['movie' => $movie]);
+        return view('/admin/edit',['movie' => $movie]);
     }
 
     public function update(Request $request,$id)
