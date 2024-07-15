@@ -40,6 +40,11 @@ class MovieController extends Controller
         return view('/movie/index',compact('movies','keyword','is_showing'));
     }
 
+    public function show($id){
+        $movie = Movie::find($id);
+        return view('movie/show',compact('movie'));
+    }
+
     public function admin()
     {
         $movies = Movie::all();
