@@ -37,8 +37,8 @@
             <tbody>
                 @foreach($schedules as $schedule)
                     <tr>
-                        <td>{{ $schedule->start_time }}</td>
-                        <td>{{ $schedule->end_time }}</td>
+                        {{ \Carbon\Carbon::parse($schedule->start_time)->format('H:i') }}
+                        - {{ \Carbon\Carbon::parse($schedule->end_time)->format('H:i') }}
                     </tr>
                 @endforeach
             </tbody>
