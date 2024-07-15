@@ -12,4 +12,9 @@ class Movie extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }
