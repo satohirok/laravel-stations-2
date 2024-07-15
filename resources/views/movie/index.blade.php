@@ -44,6 +44,7 @@
                         @endif
                     </td>
                     <td>{{ $movie->genre_id }}</td>
+                    <td><a href="{{ route('show',['id' => $movie->id]) }}" >詳細</a></td>
                 </tr>
                 @endforeach
             </tbody>
