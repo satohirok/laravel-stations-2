@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Movie;
 use App\Models\Genre;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\DB;
 
 class MovieController extends Controller
@@ -42,7 +43,8 @@ class MovieController extends Controller
 
     public function show($id){
         $movie = Movie::find($id);
-        return view('movie/show',compact('movie'));
+        $schedules = Schedule::where('movie_id', $id)->orderBy('start_time', 'asc')->get();
+        return view('movie.show', compact('movie', 'schedules'));
     }
 
     public function admin()
