@@ -52,6 +52,14 @@ class MovieController extends Controller
         $movies = Movie::all();
         return view('/admin/admin',['movies' => $movies]);
     }
+
+    public function admin_show($id)
+    {
+        $movie = Movie::find($id);
+        $schedules = Schedule::where('movie_id', $id)->orderBy('start_time', 'asc')->get();
+        return view('movie.show', compact('movie', 'schedules'));
+    }
+
     public function create()
     {
         return view('admin/create');

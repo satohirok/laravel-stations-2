@@ -35,6 +35,7 @@
                     </td>
                     <td>{{$movie->description}}</td>
                     <td>{{$movie->genre_id}}</td>
+                    <td><a href="{{ route('admin.show',['id' => $movie->id]) }}" >詳細</a></td>
                     <td><a href="{{ route('admin.edit',['id' => $movie->id]) }}" >編集</a></td>
                     <td><a href="{{ route('admin.destroy',['id' => $movie->id] )}}" onclick="return confirm('削除してよろしいですか?')">削除</a></td>
                 </tr>
@@ -43,6 +44,7 @@
         </table>
         <a href="{{ route('admin.create') }}">登録画面</a>
         <a href="{{ route('index') }}">一覧</a>
+        <a href="{{ route('schedules.index') }}">スケジュール一覧</a>
     </div>
 </body>
 </html>
