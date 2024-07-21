@@ -26,8 +26,9 @@
                 </tr>
             </tbody>
         </table>
-        <h2>上映スケジュール</h2>
-        <table border="1">
+
+        <table class="table mt-2">
+            <h2>上映スケジュール</h2>
             <thead>
                 <tr>
                     <th>開始時刻</th>
@@ -35,12 +36,22 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($schedules as $schedule)
-                    <tr>
-                        {{ \Carbon\Carbon::parse($schedule->start_time)->format('H:i') }}
-                        - {{ \Carbon\Carbon::parse($schedule->end_time)->format('H:i') }}
-                    </tr>
-                @endforeach
+              @foreach ($movie->schedules as $schedule)
+                @if($schedule)
+                <tr>
+                    <td>
+                        {{ \Carbon\Carbon::parse($schedule->start_time)->format('Y-m-d H:i') }}
+                    </td>
+                    <td>
+                        {{ \Carbon\Carbon::parse($schedule->end_time)->format('Y-m-d H:i') }}
+                    </td>
+                </tr>
+                @else
+                <tr>
+                    <td colspan="2">スケジュールがありません</td>
+                </tr>
+                @endif
+              @endforeach
             </tbody>
         </table>
     </div>

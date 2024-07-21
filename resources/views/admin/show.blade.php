@@ -16,6 +16,8 @@
                 <th>画像URL</th>
                 <th>公開年</th>
                 <th>概要</th>
+                <th>上映中かどうか</th>
+                <th>スケジュール作成</th>
             </thead>
             <tbody>
                 <tr>
@@ -23,11 +25,22 @@
                     <td><img src="{{ $movie->image_url }}"/></td>
                     <td>{{ $movie->published_year }}</td>
                     <td>{{ $movie->description }}</td>
+                    <td>
+                        @if($movie->is_showing === 1)
+                        上映中
+                        @else
+                        上映予定
+                        @endif
+                    </td>
+                    <td><a href="{{ route('schedule.create',['id' => $movie->id] )}}">作成</a></td>
                 </tr>
             </tbody>
         </table>
-        <h2>上映スケジュール</h2>
-        <table border="1">
+
+
+
+        <table class="table mt-2">
+            <h2>上映スケジュール</h2>
             <thead>
                 <tr>
                     <th>開始時刻</th>
@@ -35,14 +48,25 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($schedules as $schedule)
+              @foreach ($movie->schedules as $schedule)
+                @if($schedule)
                 <tr>
                     <td>
-                        {{ \Carbon\Carbon::parse($schedule->start_time)->format('H:i') }}
-                        - {{ \Carbon\Carbon::parse($schedule->end_time)->format('H:i') }}
+                        {{ \Carbon\Carbon::parse($schedule->start_time)->format('Y-m-d H:i:s') }}
                     </td>
-                    </tr>
-                @endforeach
+                    <td>
+                        {{ \Carbon\Carbon::parse($schedule->end_time)->format('Y-m-d H:i:s') }}
+                    </td>
+                    <td>
+                        <a href="{{ route('schedule.show', ['id' => $schedule->id])}}">詳細</a>
+                    </td>
+                </tr>
+                @else
+                <tr>
+                    <td colspan="2">スケジュールがありません</td>
+                </tr>
+                @endif
+              @endforeach
             </tbody>
         </table>
     </div>

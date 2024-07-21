@@ -42,9 +42,10 @@ class MovieController extends Controller
     }
 
     public function show($id){
-        $movie = Movie::find($id);
-        $schedules = Schedule::where('movie_id', $id)->orderBy('start_time', 'asc')->get();
-        return view('movie.show', compact('movie', 'schedules'));
+        $movie = Movie::with(['schedules' => function($query) {
+            $query->orderBy('start_time', 'asc');
+        }])->findOrFail($id);
+        return view('movie.show', compact('movie'));
     }
 
     public function admin()
@@ -55,9 +56,11 @@ class MovieController extends Controller
 
     public function admin_show($id)
     {
-        $movie = Movie::find($id);
-        $schedules = Schedule::where('movie_id', $id)->orderBy('start_time', 'asc')->get();
-        return view('movie.show', compact('movie', 'schedules'));
+        // $movie = Movie::find($id);
+        $movie = Movie::with(['schedules' => function($query) {
+            $query->orderBy('start_time', 'asc');
+        }])->findOrFail($id);
+        return view('admin.show', compact('movie'));
     }
 
     public function create()
