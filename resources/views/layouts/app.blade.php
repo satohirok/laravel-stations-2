@@ -10,7 +10,7 @@
     </head>
     <body class="bg-light">
         <nav class="navbar navbar-expand-lg navbar-light bg-navbar">
-            <a class="navbar-brand" href="#">Laravel-Stations</a>
+            <a class="navbar-brand" href="{{route('admin')}}">Laravel-Stations</a>
         </nav>
         <div class="container">
             @yield('content')
