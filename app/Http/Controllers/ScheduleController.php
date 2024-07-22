@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
+use Carbon\Carbon;
 use App\Models\Movie;
 use App\Models\Schedule;
 
@@ -42,11 +43,13 @@ class ScheduleController extends Controller
         $startTime = $startTimeDate . ' ' . $startTimeTime;
         $endTime = $endTimeDate . ' ' . $endTimeTime;
 
+        $start = Carbon::createFromFormat('Y-m-d H:i', $startTime);
+        $end = Carbon::createFromFormat('Y-m-d H:i', $endTime);
 
         $schedule = new Schedule();
         $schedule->movie_id = $request->input('movie_id');
-        $schedule->start_time = $startTime;
-        $schedule->end_time = $endTime;
+        $schedule->start_time = $start;
+        $schedule->end_time = $end;
 
         $schedule->save();
 
