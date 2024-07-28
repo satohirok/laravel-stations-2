@@ -1,0 +1,45 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Requests\CreateReservationRequest;
+use App\Models\Schedule;
+use App\Models\Reservation;
+
+class ReservationController extends Controller
+{
+    //
+    public function create(Request $request, $movie_id,$schedule_id)
+    {
+
+
+
+        if(!$request->has('sheetId') || !$request->has('date'))
+        {
+            return response()->json(['error' => '画面取得に失敗しました'],400);
+        }
+
+        $sheet_id = $request->input('sheetId');
+        $date = $request->input('date');
+        return view('/reservation/create',compact('movie_id','schedule_id','sheet_id','date'));
+
+    }
+
+    public function store(CreateReservationRequest $request)
+    {
+        $reservation = new Reservation();
+
+        $reservation->schedule_id = $request->input('schedule_id');
+        $reservation->sheet_id = $request->input('sheet_id');
+        $reservation->date = $request->input('date');
+        $reservation->email = $request->input('email');
+        $reservation->name = $request->input('name');
+
+        $reservation->save();
+
+        $movie_id = Schedule::findOrFail($request->input('schedule_id'))->movie_id;
+
+        return redirect()->route('show', ['id' => $movie_id ]);
+    }
+}

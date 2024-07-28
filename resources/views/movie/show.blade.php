@@ -33,6 +33,7 @@
                 <tr>
                     <th>開始時刻</th>
                     <th>終了時刻</th>
+                    <th>座席を予約する</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +45,13 @@
                     </td>
                     <td>
                         {{ \Carbon\Carbon::parse($schedule->end_time)->format('Y-m-d H:i') }}
+                    </td>
+                    <td>
+                        <form action="{{ route('sheet.show',['movie_id' => $movie->id,'schedule_id' => $schedule->id])}}">
+                            <input type="hidden" name="date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                            <input type="submit" value="座席を予約する" class="btn btn-primary">
+
+                        </form>
                     </td>
                 </tr>
                 @else
