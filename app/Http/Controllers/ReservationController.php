@@ -13,11 +13,22 @@ class ReservationController extends Controller
     public function create(Request $request, $movie_id,$schedule_id)
     {
 
-
-
         if(!$request->has('sheetId') || !$request->has('date'))
         {
             return response()->json(['error' => '画面取得に失敗しました'],400);
+        }
+
+        $date = $request->query('date');
+        $sheet_id = $request->query('sheetId');
+
+        // 既存の予約をチェック
+        $existingReservation = Reservation::where('schedule_id', $schedule_id)
+                                        ->where('sheet_id', $sheet_id)
+                                        ->first();
+
+        if ($existingReservation) {
+            // すでに予約が存在する場合は400エラーを返す
+            return response()->json(['error' => 'すでに予約済みの座席です'],400);
         }
 
         $sheet_id = $request->input('sheetId');
@@ -28,8 +39,8 @@ class ReservationController extends Controller
 
     public function store(CreateReservationRequest $request)
     {
-        $reservation = new Reservation();
 
+        $reservation = new Reservation();
         $reservation->schedule_id = $request->input('schedule_id');
         $reservation->sheet_id = $request->input('sheet_id');
         $reservation->date = $request->input('date');
@@ -39,7 +50,6 @@ class ReservationController extends Controller
         $reservation->save();
 
         $movie_id = Schedule::findOrFail($request->input('schedule_id'))->movie_id;
-
         return redirect()->route('show', ['id' => $movie_id ]);
     }
 }

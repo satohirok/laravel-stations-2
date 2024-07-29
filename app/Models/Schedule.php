@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Schedule extends Model
 {
@@ -28,5 +29,10 @@ class Schedule extends Model
     public function movie()
     {
         return $this->belongsTo(Movie::class);
+    }
+
+    public function sheets(): BelongsToMany
+    {
+        return $this->belongsToMany(Sheet::class,'reservations');
     }
 }

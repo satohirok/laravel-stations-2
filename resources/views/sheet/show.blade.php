@@ -20,7 +20,11 @@
                             <form action="{{route('reservation.create',['movie_id' => $movie->id,'schedule_id' => $schedule->id])}}" method="GET">
                                 <input type="hidden" name="date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                 <input type="hidden" name="sheetId" value="{{$sheet->id}}">
-                                <input type="submit" class="btn btn-outline-primary" value="{{$sheet->row}}-{{$sheet->column}}">
+                                @if ($schedule->sheets->contains('id', $sheet->id))
+                                    <input type="submit" class="btn btn-outline-primary" value="予約済" disabled>
+                                @else
+                                    <input type="submit" class="btn btn-outline-primary" value="{{$sheet->row}}-{{$sheet->column}}">
+                                @endif
                             </form>
                         </td>
                     @endforeach

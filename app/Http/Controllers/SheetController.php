@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Sheet;
 use App\Models\Movie;
 use App\Models\Schedule;
+use App\Models\Reservation;
 
 class SheetController extends Controller
 {
@@ -22,7 +23,7 @@ class SheetController extends Controller
             return response()->json(['error' => '画面取得に失敗しました'],400);
         }
 
-        $sheets = Sheet::all()->groupBy('row');;
+        $sheets = Sheet::all()->groupBy('row');
         return view('/sheet/show',compact('movie','schedule','sheets'));
     }
 }
