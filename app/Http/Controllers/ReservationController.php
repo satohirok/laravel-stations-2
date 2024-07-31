@@ -10,6 +10,12 @@ use App\Models\Reservation;
 class ReservationController extends Controller
 {
     //
+    public function index()
+    {
+        $reservations = Reservation::with('schedule.movie')->get();
+        return view('admin/reservations/index',compact('reservations'));
+    }
+
     public function create(Request $request, $movie_id,$schedule_id)
     {
 

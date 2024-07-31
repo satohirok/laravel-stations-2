@@ -45,6 +45,7 @@
         <a href="{{ route('admin.create') }}">登録画面</a>
         <a href="{{ route('index') }}">一覧</a>
         <a href="{{ route('schedules.index') }}">スケジュール一覧</a>
+        <a href="{{ route('reservation.index') }}">予約一覧</a>
     </div>
 </body>
 </html>

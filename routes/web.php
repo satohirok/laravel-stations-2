@@ -59,3 +59,4 @@ Route::delete('/admin/schedules/{id}/destroy',[ScheduleController::class,'destro
 // reservation
 Route::get('/movies/{movie_id}/schedules/{schedule_id}/reservations/create',[ReservationController::class,'create'])->name('reservation.create');
 Route::post('/reservations/store',[ReservationController::class,'store'])->name('reservation.store');
+Route::get('/admin/reservations',[ReservationController::class,'index'])->name('reservation.index');
