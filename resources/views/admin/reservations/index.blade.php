@@ -22,11 +22,13 @@
             <tbody>
                 @foreach ($reservations as $reservation)
                     <tr>
-                        <td>{{$reservation->schedule->movie->title}} </td>
-                        <td>{{strtoupper($reservation->sheet->row.$reservation->sheet->column)}} </td>
-                        <td>{{$reservation->date}}</td>
-                        <td>{{$reservation->name}}</td>
-                        <td>{{$reservation->email}}</td>
+                        @if ( \Carbon\Carbon::now()->format('Y-m-d') < $reservation->schedule->end_time)
+                            <td>{{$reservation->schedule->movie->title}} </td>
+                            <td>{{strtoupper($reservation->sheet->row.$reservation->sheet->column)}} </td>
+                            <td>{{$reservation->date}}</td>
+                            <td>{{$reservation->name}}</td>
+                            <td>{{$reservation->email}}</td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
