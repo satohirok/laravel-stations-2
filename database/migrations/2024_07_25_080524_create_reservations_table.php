@@ -15,7 +15,7 @@ class CreateReservationsTable extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->date('date')->nullable()->comment('上映日');
+            $table->date('date')->comment('上映日');
             $table->unsignedBigInteger('schedule_id')->comment('スケジュールID');
             $table->unsignedBigInteger('sheet_id')->comment('シートID');
             $table->string('email',255)->comment('予約者メールアドレス');
