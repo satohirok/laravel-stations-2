@@ -33,6 +33,9 @@
                 @endforeach
             </tbody>
         </table>
+        <button class="btn btn-outline-danger">
+            <a href="{{route('admin_reservation.create')}}">予約</a>
+        </button>
 
     </div>
 </body>
