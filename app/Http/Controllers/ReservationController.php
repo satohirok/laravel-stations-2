@@ -88,4 +88,12 @@ class ReservationController extends Controller
         $reservation->save();
         return redirect()->route('reservation.index');
     }
+
+    public function edit($id){
+        $reservation = Reservation::find($id);
+        $sheet = Sheet::find($reservation->sheet_id);
+        $schedule = Schedule::find($reservation->schedule_id);
+
+        return view('/admin/reservations/edit',compact('reservation','schedule','sheet'));
+    }
 }

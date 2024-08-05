@@ -17,7 +17,7 @@
                 <th>日時</th>
                 <th>名前</th>
                 <th>メールアドレス</th>
-
+                <th>編集</th>
             </thead>
             <tbody>
                 @foreach ($reservations as $reservation)
@@ -28,6 +28,9 @@
                             <td>{{$reservation->date}}</td>
                             <td>{{$reservation->name}}</td>
                             <td>{{$reservation->email}}</td>
+                            <td>
+                                <a href="{{ route('reservation.edit',['id' => $reservation->id]) }}">編集</a>
+                            </td>
                         @endif
                     </tr>
                 @endforeach
