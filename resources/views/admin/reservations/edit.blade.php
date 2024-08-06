@@ -10,10 +10,10 @@
 <body>
     <div class="container mt-3">
         <h1>管理者予約編集ページ</h1>
-        <form method="POST" action="{{route('admin_reservation.store')}}">
+        <form method="PATCH" action="{{route('reservation.update',['id' => $reservation->id])}}">
             @csrf
             <label for="">予約日</label>
-            <input type="date" name="date" class="form-control mb-2 col-2" value="">
+            <input type="date" name="date" class="form-control mb-2 col-2" value="{{$reservation->date}}">
             <label for="">映画タイトル</label>
             <select name="movie_id" class="form-select col-1">
                 @foreach ($movies as $movie)
@@ -36,9 +36,9 @@
             </select>
 
             <label for="email" class="mt-2">メールアドレス</label>
-            <input type="text" name="email" class="form-control col-4">
+            <input type="text" name="email" class="form-control col-4" value="{{$reservation->email}}">
             <label for="name">名前</label>
-            <input type="text" name="name" class="form-control col-3">
+            <input type="text" name="name" class="form-control col-3" value="{{$reservation->name}}">
             <input type="submit" class="btn btn-primary mt-2" value="登録">
         </form>
         @error('schedule_id')

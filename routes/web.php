@@ -62,6 +62,7 @@ Route::post('/reservations/store',[ReservationController::class,'store'])->name(
 Route::get('/admin/reservations',[ReservationController::class,'index'])->name('reservation.index');
 Route::get('/admin/reservations/create',[ReservationController::class,'admin_create'])->name('admin_reservation.create');
 Route::post('/admin/reservations',[ReservationController::class,'admin_store'])->name('admin_reservation.store');
-Route::get('/admin/reservations/{id}',[ReservationController::class,'edit'])->name('reservation.edit');
+
+Route::get('/admin/reservations/{id}/edit',[ReservationController::class,'edit'])->name('reservation.edit');
 Route::get('/admin/reservations/{id}',[ReservationController::class,'update'])->name('reservation.update');
 Route::patch('/admin/reservations/{id}',[ReservationController::class,'update'])->name('reservation.update');

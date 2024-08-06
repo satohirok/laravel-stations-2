@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateReservationRequest;
 use App\Http\Requests\CreateAdminReservationRequest;
+use App\Http\Requests\UpdateAdminReservationRequest;
 use App\Models\Movie;
 use App\Models\Schedule;
 use App\Models\Sheet;
@@ -91,9 +92,26 @@ class ReservationController extends Controller
 
     public function edit($id){
         $reservation = Reservation::find($id);
-        $sheet = Sheet::find($reservation->sheet_id);
-        $schedule = Schedule::find($reservation->schedule_id);
+        $movies = Movie::all();
+        $schedules = Schedule::all();
+        $sheets = Sheet::all();
 
-        return view('/admin/reservations/edit',compact('reservation','schedule','sheet'));
+        return view('/admin/reservations/edit',compact('reservation','movies','schedules','sheets'));
+    }
+
+    public function update(UpdateAdminReservationRequest $request ,$id){
+        $reservation = Reservation::find($id);
+
+        if ($request->input('date')){
+            $reservation->date = $request->input('date');
+        }
+        $reservation->schedule_id = $request->input('schedule_id');
+        $reservation->sheet_id = $request->input('sheet_id');
+        $reservation->email = $request->input('email');
+        $reservation->name = $request->input('name');
+
+        $reservation->save();
+
+        return redirect()->route('reservation.index');
     }
 }
