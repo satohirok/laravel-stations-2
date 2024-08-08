@@ -18,6 +18,7 @@
                 <th>名前</th>
                 <th>メールアドレス</th>
                 <th>編集</th>
+                <th>削除</th>
             </thead>
             <tbody>
                 @foreach ($reservations as $reservation)
@@ -30,6 +31,9 @@
                             <td>{{$reservation->email}}</td>
                             <td>
                                 <a href="{{ route('reservation.edit',['id' => $reservation->id]) }}">編集</a>
+                            </td>
+                            <td>
+                                <a href="{{ route('reservation.destroy',['id' => $reservation->id]) }}">削除</a>
                             </td>
                         @endif
                     </tr>

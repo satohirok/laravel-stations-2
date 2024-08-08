@@ -114,4 +114,15 @@ class ReservationController extends Controller
 
         return redirect()->route('reservation.index');
     }
+
+    public function destroy($id){
+        $reservation = Reservation::find($id);
+
+        if (!$reservation) {
+            return abort(404);
+        }
+        $reservation->delete();
+
+        return redirect()->route('reservation.index');
+    }
 }

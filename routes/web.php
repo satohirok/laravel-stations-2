@@ -66,3 +66,5 @@ Route::post('/admin/reservations',[ReservationController::class,'admin_store'])-
 Route::get('/admin/reservations/{id}/edit',[ReservationController::class,'edit'])->name('reservation.edit');
 Route::get('/admin/reservations/{id}',[ReservationController::class,'update'])->name('reservation.update');
 Route::patch('/admin/reservations/{id}',[ReservationController::class,'update'])->name('reservation.update');
+Route::get('/admin/reservations/{id}/',[ReservationController::class, 'destroy'])->name('reservation.destroy');
+Route::delete('/admin/reservations/{id}',[ReservationController::class,'destroy'])->name('reservation.destroy');
