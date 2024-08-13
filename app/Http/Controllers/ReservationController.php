@@ -66,7 +66,6 @@ class ReservationController extends Controller
         $reservation->email = $request->input('email');
         $reservation->name = $request->input('name');
 
-        dd($reservation);
         $reservation->save();
 
         $movie_id = Schedule::findOrFail($request->input('schedule_id'))->movie_id;
