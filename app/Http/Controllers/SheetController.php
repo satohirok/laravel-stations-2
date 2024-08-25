@@ -11,7 +11,7 @@ use App\Models\Reservation;
 class SheetController extends Controller
 {
     public function index() {
-        $sheets = Sheet::all();
+        $sheets = Sheet::all()->groupBy('row');
         return view('/sheet/index',compact('sheets'));
     }
 

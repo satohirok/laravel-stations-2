@@ -12,13 +12,15 @@
         <h1>座席表</h1>
         <table class="table" border="2">
             <tbody>
-                @foreach ($sheets as $sheet)
+                @foreach ($sheets as $row => $rowSheets)
                 <tr>
-                    <td>{{$sheet->id}}</td>
-                    <td>{{$sheet->row}}-{{$sheet->column}}</td>
+                    @foreach ($rowSheets as $sheet)
+                        <td>
+                          <input type="submit" class="btn btn-outline-primary" value="{{$sheet->row}}-{{$sheet->column}}">
+                        </td>
+                    @endforeach
                 </tr>
                 @endforeach
-            </tbody>
         </table>
     </div>
 </body>
