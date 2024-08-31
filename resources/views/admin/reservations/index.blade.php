@@ -14,6 +14,7 @@
             <thead>
                 <th>映画作品</th>
                 <th>座席</th>
+                <th>スクリーン</th>
                 <th>日時</th>
                 <th>名前</th>
                 <th>メールアドレス</th>
@@ -26,6 +27,7 @@
                         @if ( \Carbon\Carbon::now()->format('Y-m-d') < $reservation->schedule->end_time)
                             <td>{{$reservation->schedule->movie->title}} </td>
                             <td>{{strtoupper($reservation->sheet->row.$reservation->sheet->column)}} </td>
+                            <td>{{$reservation->screen->name}}</td>
                             <td>{{$reservation->date}}</td>
                             <td>{{$reservation->name}}</td>
                             <td>{{$reservation->email}}</td>

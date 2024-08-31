@@ -35,6 +35,13 @@
                 @endforeach
             </select>
 
+            <label for="" class="mt-2">スクリーン</label>
+            <select name="screen_id" class="form-select col-2">
+                @foreach ($screens as $screen)
+                    <option value="{{$screen->id}}">{{$screen->name}}</option>
+                @endforeach
+            </select>
+
             <label for="email" class="mt-2">メールアドレス</label>
             <input type="text" name="email" class="form-control col-4" value="{{$reservation->email}}">
             <label for="name">名前</label>
