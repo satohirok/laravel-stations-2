@@ -35,4 +35,9 @@ class Schedule extends Model
     {
         return $this->belongsToMany(Sheet::class,'reservations');
     }
+
+    public function screens(): BelongsToMany
+    {
+        return $this->belongsToMany(Screen::class,'reservations');
+    }
 }

@@ -18,4 +18,9 @@ class Reservation extends Model
         return $this->belongsTo(Sheet::class);
     }
 
+    public function screen()
+    {
+        return $this->belongsTo(Screen::class);
+    }
+
 }
