@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateReservationRequest extends FormRequest
 {
@@ -25,10 +26,18 @@ class CreateReservationRequest extends FormRequest
     {
         return [
             'schedule_id' => ['required'],
-            'sheet_id' => ['required','unique:reservations,sheet_id,NULL,id,schedule_id,' . $this->schedule_id],
+            'screen_id' => ['required'],
             'name' => ['required'],
             'email' => ['required', 'email:strict,dns'],
-            'date' => ['required', 'date_format:Y-m-d']
+            'date' => ['required', 'date_format:Y-m-d'],
+            'sheet_id' => [
+            'required',
+            // schedule_id, sheet_id, screen_id の組み合わせで一意性を確認
+            Rule::unique('reservations')
+                ->where('schedule_id', $this->schedule_id)
+                ->where('sheet_id', $this->sheet_id)
+                ->where('screen_id', $this->screen_id)
+            ],
         ];
     }
 }

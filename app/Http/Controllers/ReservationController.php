@@ -21,7 +21,7 @@ class ReservationController extends Controller
         return view('admin/reservations/index',compact('reservations'));
     }
 
-    public function create(Request $request, $movie_id,$schedule_id)
+    public function create(Request $request, $movie_id,$schedule_id,$screen_id)
     {
 
         if(!$request->has('sheetId') || !$request->has('date'))
@@ -31,10 +31,12 @@ class ReservationController extends Controller
 
         $date = $request->query('date');
         $sheet_id = $request->query('sheetId');
+        $screen_id = $request->query('screen_id');
 
         // 既存の予約をチェック
         $existingReservation = Reservation::where('schedule_id', $schedule_id)
                                         ->where('sheet_id', $sheet_id)
+                                        ->where('screen_id', $screen_id)
                                         ->first();
 
         if ($existingReservation) {
@@ -44,7 +46,8 @@ class ReservationController extends Controller
 
         $sheet_id = $request->input('sheetId');
         $date = $request->input('date');
-        return view('/reservation/create',compact('movie_id','schedule_id','sheet_id','date'));
+        $screen_id = $request->input('screen_id');
+        return view('/reservation/create',compact('movie_id','schedule_id','sheet_id','date','screen_id'));
 
 }
 
@@ -63,6 +66,7 @@ class ReservationController extends Controller
         $reservation = new Reservation();
         $reservation->schedule_id = $request->input('schedule_id');
         $reservation->sheet_id = $request->input('sheet_id');
+        $reservation->screen_id = $request->input('screen_id');
         $reservation->date = $request->input('date');
         $reservation->date = $request->input('date');
         $reservation->email = $request->input('email');

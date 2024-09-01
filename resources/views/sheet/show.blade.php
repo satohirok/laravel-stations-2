@@ -17,10 +17,11 @@
                 <tr>
                     @foreach ($rowSheets as $sheet)
                         <td>
-                            <form action="{{route('reservation.create',['movie_id' => $movie->id,'schedule_id' => $schedule->id])}}" method="GET">
+                            <form action="{{route('reservation.create',['movie_id' => $movie->id,'schedule_id' => $schedule->id,'screen_id' => $schedule->screen_id])}}" method="GET">
                                 <input type="hidden" name="date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                 <input type="hidden" name="sheetId" value="{{$sheet->id}}">
-                                @if ($schedule->sheets->contains('id', $sheet->id))
+                                <input type="hidden" name="screen_id" value="{{$schedule->screen_id}}">
+                                @if ($schedule->sheets->contains('id', $sheet->id) && $sheet->screens->contains('id',$screen->id))
                                     <input type="submit" class="btn btn-outline-primary" value="予約済" disabled>
                                 @else
                                     <input type="submit" class="btn btn-outline-primary" value="{{$sheet->row}}-{{$sheet->column}}">

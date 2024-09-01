@@ -16,6 +16,7 @@
             {{-- <input type="hidden" name="movie_id" value="{{$movie_id}}"> --}}
             <input type="hidden" name="schedule_id" class="form-control" value="{{$schedule_id}}">
             <input type="hidden" name="sheet_id" class="form-control" value="{{$sheet_id}}">
+            <input type="text" name="screen_id" class="form-control" value="{{$screen_id}}">
             <input type="hidden" name="date" class="form-control" value="{{$date}}">
 
             <label for="email" class="form-label">メールアドレス</label>
