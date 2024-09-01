@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateAdminReservationRequest extends FormRequest
 {
@@ -26,7 +27,12 @@ class CreateAdminReservationRequest extends FormRequest
         return [
             'movie_id' => ['required'],
             'schedule_id' => ['required'],
-            'sheet_id' => ['required','unique:reservations,sheet_id,NULL,id,schedule_id,' . $this->schedule_id],
+            'sheet_id' => [
+                'required',
+                Rule::unique('reservations')
+                    ->where('schedule_id', $this->schedule_id)
+                    ->where('screen_id', $this->screen_id)
+            ],
             'name' => ['required'],
             'email' => ['required', 'email:strict,dns'],
         ];

@@ -27,6 +27,7 @@ class UpdateAdminReservationRequest extends FormRequest
             'movie_id' => ['required'],
             'schedule_id' => ['required'],
             'sheet_id' => ['required'],
+            'screen_id' => ['required'],
             'name' => ['required'],
             'email' => ['required', 'email:strict,dns'],
         ];
