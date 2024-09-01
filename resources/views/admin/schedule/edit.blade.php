@@ -25,6 +25,14 @@
                     <input name="end_time_time" type="time" class="form-control" value="{{($schedule->end_time)->format('H:i') }}">
                 </div>
             </div>
+
+            <label for="">上映スクリーン</label>
+            <select name="screen_id" class="form-select col-2">
+                @foreach ($screens as $screen)
+                    <option value="{{$screen->id}}">{{$screen->name}}</option>
+                @endforeach
+            </select>
+
             <div class="mt-2">
                 <input type="submit" class="btn btn-primary">
             </div>

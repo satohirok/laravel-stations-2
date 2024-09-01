@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateScheduleRequest;
 use Carbon\Carbon;
 use App\Models\Movie;
 use App\Models\Schedule;
+use App\Models\Screen;
 
 class ScheduleController extends Controller
 {
@@ -29,7 +30,8 @@ class ScheduleController extends Controller
     public function create($id)
     {
         $movie = Movie::find($id);
-        return view('/admin/schedule/create',compact('movie'));
+        $screens = Screen::all();
+        return view('/admin/schedule/create',compact('movie','screens'));
     }
 
     public function store(CreateScheduleRequest $request,$id)
@@ -48,6 +50,7 @@ class ScheduleController extends Controller
 
         $schedule = new Schedule();
         $schedule->movie_id = $request->input('movie_id');
+        $schedule->screen_id = $request->input('screen_id');
         $schedule->start_time = $start;
         $schedule->end_time = $end;
 
@@ -60,7 +63,8 @@ class ScheduleController extends Controller
     public function edit($id)
     {
         $schedule = schedule::find($id);
-        return view('/admin/schedule/edit',compact('schedule'));
+        $screens = Screen::all();
+        return view('/admin/schedule/edit',compact('schedule','screens'));
     }
 
     public function update(UpdateScheduleRequest $request,$id)
@@ -76,6 +80,7 @@ class ScheduleController extends Controller
 
         $schedule = schedule::find($id);
         $schedule->movie_id = $request->input('movie_id');
+        $schedule->screen_id = $request->input('screen_id');
         $schedule->start_time = $startTime;
         $schedule->end_time = $endTime;
 
