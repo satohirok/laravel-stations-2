@@ -22,12 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/practice', [PracticeController::class, 'sample']);
-Route::get('/practice2', [PracticeController::class, 'sample2']);
-Route::get('/practice3', [PracticeController::class, 'sample3']);
-
-Route::get('/getPractice',[PracticeController::class,'getPractice']);
-
 // movie
 Route::get('/movies',[MovieController::class,'index'])->name('index');
 Route::get('/movies/{id}',[MovieController::class,'show'])->name('show');
@@ -68,3 +62,9 @@ Route::get('/admin/reservations/{id}',[ReservationController::class,'update'])->
 Route::patch('/admin/reservations/{id}',[ReservationController::class,'update'])->name('reservation.update');
 Route::get('/admin/reservations/{id}/',[ReservationController::class, 'destroy'])->name('reservation.destroy');
 Route::delete('/admin/reservations/{id}',[ReservationController::class,'destroy'])->name('reservation.destroy');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
