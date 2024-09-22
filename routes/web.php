@@ -6,6 +6,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\SheetController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,8 @@ Route::delete('/admin/movies/{id}/destroy',[MovieController::class,'destroy'])->
 
 // sheet
 Route::get('/sheets',[SheetController::class,'index'])->name('sheets.index');
-Route::get('/movies/{movie_id}/schedules/{schedule_id}/sheets/{screen_id}',[SheetController::class,'show'])->name('sheet.show');
+Route::get('/movies/{movie_id}/schedules/{schedule_id}/sheets/{screen_id}',[SheetController::class,'show'])
+       ->middleware(['auth'])->name('sheet.show');
 
 // schedule
 Route::get('/admin/schedules',[ScheduleController::class,'index'])->name('schedules.index');
@@ -51,8 +53,10 @@ Route::get('/admin/schedules/{id}/destroy',[ScheduleController::class,'destroy']
 Route::delete('/admin/schedules/{id}/destroy',[ScheduleController::class,'destroy'])->name('schedule.destroy');
 
 // reservation
-Route::get('/movies/{movie_id}/schedules/{schedule_id}/reservations/create/{screen_id}',[ReservationController::class,'create'])->name('reservation.create');
-Route::post('/reservations/store',[ReservationController::class,'store'])->name('reservation.store');
+Route::get('/movies/{movie_id}/schedules/{schedule_id}/reservations/create/{screen_id}',[ReservationController::class,'create'])
+       ->middleware(['auth'])->name('reservation.create');
+Route::post('/reservations/store',[ReservationController::class,'store'])
+       ->middleware(['auth'])->name('reservation.store');
 Route::get('/admin/reservations',[ReservationController::class,'index'])->name('reservation.index');
 Route::get('/admin/reservations/create',[ReservationController::class,'admin_create'])->name('admin_reservation.create');
 Route::post('/admin/reservations',[ReservationController::class,'admin_store'])->name('admin_reservation.store');
@@ -62,6 +66,9 @@ Route::get('/admin/reservations/{id}',[ReservationController::class,'update'])->
 Route::patch('/admin/reservations/{id}',[ReservationController::class,'update'])->name('reservation.update');
 Route::get('/admin/reservations/{id}/',[ReservationController::class, 'destroy'])->name('reservation.destroy');
 Route::delete('/admin/reservations/{id}',[ReservationController::class,'destroy'])->name('reservation.destroy');
+
+// user
+Route::get('/users/create',[RegisteredUserController::class,'create'])->name('auth.create');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
