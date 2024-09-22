@@ -17,13 +17,14 @@
             <input type="hidden" name="schedule_id" class="form-control" value="{{$schedule_id}}">
             <input type="hidden" name="sheet_id" class="form-control" value="{{$sheet_id}}">
             <input type="hidden" name="screen_id" class="form-control" value="{{$screen_id}}">
+            <input type="hidden" name="user_id" class="form-control" value="{{Auth::user()->id}}">
             <input type="hidden" name="date" class="form-control" value="{{$date}}">
 
-            <label for="email" class="form-label">メールアドレス</label>
-            <input type="email" name="email" class="form-control col-4" placeholder="samle@co.jp">
-            <label for="name" class="form-label">名前</label>
-            <input type="name" name="name" class="form-control col-3">
 
+            <label for="email" class="form-label">メールアドレス</label>
+            <input class="form-control col-4" value="{{Auth::user()->email}}" readonly>
+            <label for="name" class="form-label">名前</label>
+            <input class="form-control col-3" value="{{Auth::user()->name}}" readonly >
 
             <button type="submit" class="btn btn-primary mt-3">予約する</button>
             @error('schedule_id')

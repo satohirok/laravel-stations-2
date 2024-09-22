@@ -67,10 +67,8 @@ class ReservationController extends Controller
         $reservation->schedule_id = $request->input('schedule_id');
         $reservation->sheet_id = $request->input('sheet_id');
         $reservation->screen_id = $request->input('screen_id');
+        $reservation->user_id = $request->input('user_id');
         $reservation->date = $request->input('date');
-        $reservation->date = $request->input('date');
-        $reservation->email = $request->input('email');
-        $reservation->name = $request->input('name');
 
         $reservation->save();
 
