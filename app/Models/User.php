@@ -15,4 +15,9 @@ class User extends Authenticatable
         'email',
         'password'
     ];
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }
