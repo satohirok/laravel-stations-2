@@ -10,6 +10,7 @@ use App\Models\Movie;
 use App\Models\Schedule;
 use App\Models\Sheet;
 use App\Models\Screen;
+use App\Models\User;
 use App\Models\Reservation;
 
 class ReservationController extends Controller
@@ -57,7 +58,8 @@ class ReservationController extends Controller
         $schedules = Schedule::all();
         $sheets = Sheet::all();
         $screens = Screen::all();
-        return view('/admin/reservations/create',compact('movies','schedules','sheets','screens'));
+        $users = User::all();
+        return view('/admin/reservations/create',compact('movies','schedules','sheets','screens','users'));
     }
 
     public function store(CreateReservationRequest $request)
@@ -87,8 +89,7 @@ class ReservationController extends Controller
         $reservation->schedule_id = $request->input('schedule_id');
         $reservation->sheet_id = $request->input('sheet_id');
         $reservation->screen_id = $request->input('screen_id');
-        $reservation->email = $request->input('email');
-        $reservation->name = $request->input('name');
+        $reservation->user_id = $request->input('user_id');
 
         $reservation->save();
         return redirect()->route('reservation.index');
@@ -100,8 +101,9 @@ class ReservationController extends Controller
         $schedules = Schedule::all();
         $sheets = Sheet::all();
         $screens = Screen::all();
+        $users = User::all();
 
-        return view('/admin/reservations/edit',compact('reservation','movies','schedules','sheets','screens'));
+        return view('/admin/reservations/edit',compact('reservation','movies','schedules','sheets','screens','users'));
     }
 
     public function update(UpdateAdminReservationRequest $request ,$id){
@@ -113,8 +115,7 @@ class ReservationController extends Controller
         $reservation->schedule_id = $request->input('schedule_id');
         $reservation->sheet_id = $request->input('sheet_id');
         $reservation->screen_id = $request->input('screen_id');
-        $reservation->email = $request->input('email');
-        $reservation->name = $request->input('name');
+        $reservation->user_id = $request->input('user_id');
 
         $reservation->save();
 

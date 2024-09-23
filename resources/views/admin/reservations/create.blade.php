@@ -42,10 +42,13 @@
                 @endforeach
             </select>
 
-            <label for="email" class="mt-2">メールアドレス</label>
-            <input type="text" name="email" class="form-control col-4">
-            <label for="name">名前</label>
-            <input type="text" name="name" class="form-control col-3">
+            <label for="" class="mt-2">予約者情報</label>
+            <select name="user_id" class="form-select col-2">
+                @foreach ($users as $user)
+                    <option value="{{$user->id}}">{{$user->name}}:{{$user->email}}</option>
+                @endforeach
+            </select>
+
             <input type="submit" class="btn btn-primary mt-2" value="登録">
         </form>
         @error('schedule_id')

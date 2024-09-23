@@ -33,8 +33,7 @@ class CreateAdminReservationRequest extends FormRequest
                     ->where('schedule_id', $this->schedule_id)
                     ->where('screen_id', $this->screen_id)
             ],
-            'name' => ['required'],
-            'email' => ['required', 'email:strict,dns'],
+            'user_id' => ['required'],
         ];
     }
 }

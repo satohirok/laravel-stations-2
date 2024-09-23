@@ -29,8 +29,8 @@
                             <td>{{strtoupper($reservation->sheet->row.$reservation->sheet->column)}} </td>
                             <td>{{$reservation->screen->name}}</td>
                             <td>{{$reservation->date}}</td>
-                            <td>{{$reservation->name}}</td>
-                            <td>{{$reservation->email}}</td>
+                            <td>{{$reservation->user->name}}</td>
+                            <td>{{$reservation->user->email}}</td>
                             <td>
                                 <a href="{{ route('reservation.edit',['id' => $reservation->id]) }}">編集</a>
                             </td>

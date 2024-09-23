@@ -28,8 +28,7 @@ class UpdateAdminReservationRequest extends FormRequest
             'schedule_id' => ['required'],
             'sheet_id' => ['required'],
             'screen_id' => ['required'],
-            'name' => ['required'],
-            'email' => ['required', 'email:strict,dns'],
+            'user_id' => ['required'],
         ];
     }
 }
