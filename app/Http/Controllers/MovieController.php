@@ -28,16 +28,38 @@ class MovieController extends Controller
             $query->where('is_showing',false);
         }
 
+        // 作品データの変数名は、 view に渡している変数名と合わせて適宜変更してください
+        // $movies = DB::table('movies')->whereRaw("title = '{$request->input('keyword')}'")->get();
+
         $keyword = $request->input('keyword','');
 
+        // if (!empty($keyword)) {
+        //     $query->where(function($q) use ($keyword) {
+        //         $q->where('title', 'like', '%' . $keyword . '%')
+        //           ->orWhere('description', 'like', '%' . $keyword . '%');
+        //     });
+        // }
+
+
+        // SQLインジェクション未対策
         if (!empty($keyword)) {
             $query->where(function($q) use ($keyword) {
-                $q->where('title', 'like', '%' . $keyword . '%')
-                  ->orWhere('description', 'like', '%' . $keyword . '%');
+                $q->whereRaw("title = '{$keyword}'")->get();
+
             });
         }
 
+
+        // SQLインジェクション対策済み
+        // if (!empty($keyword)) {
+        //     $query->where(function($q) use ($keyword) {
+        //         $q->whereRaw("title = ?" ,[$keyword])->get();
+
+        //     });
+        // }
+
         $movies = $query->paginate(20);
+
         return view('/movie/index',compact('movies','keyword','is_showing'));
     }
 
